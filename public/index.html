@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShipTrack — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+
+    <nav class="sidebar">
+      <div class="sidebar-brand">ShipTrack</div>
+      <button class="nav-item active" data-section="dashboard">Dashboard</button>
+      <button class="nav-item" data-section="products">Products</button>
+      <button class="nav-item" data-section="categories">Categories</button>
+      <button class="nav-item" data-section="suppliers">Suppliers</button>
+      <button class="nav-item" data-section="stock">Stock &amp; History</button>
+      <button class="nav-item" data-section="login-history" id="loginHistoryNav" style="display:none;">Login History</button>
+      <button class="nav-item" data-section="users" id="usersNav" style="display:none;">Users</button>
+      <div class="sidebar-footer">
+        <div id="userInfo"></div>
+        <button id="logoutBtn">Logout</button>
+      </div>
+    </nav>
+
+    <main class="admin-main">
+
+      <div id="lowStockBanner" class="low-stock-banner" style="display:none;"></div>
+
+      <!-- ===== Dashboard section ===== -->
+      <section class="view" id="view-dashboard">
+        <h2 class="view-title">Overview</h2>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Products</div>
+            <div class="stat-value" id="statTotalProducts">—</div>
+          </div>
+          <div class="stat-card stat-card-amber">
+            <div class="stat-label">Low Stock Items</div>
+            <div class="stat-value" id="statLowStock">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Inventory Value</div>
+            <div class="stat-value" id="statTotalValue">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Categories</div>
+            <div class="stat-value" id="statCategories">—</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Products section ===== -->
+      <section class="view" id="view-products" style="display:none;">
+        <h2 class="view-title">Products</h2>
+
+        <div class="panel" id="adminPanel" style="display:none;">
+          <h3>Add Product</h3>
+          <form id="addProductForm" class="inline-form">
+            <input type="text" id="p_name" placeholder="Name" required>
+            <input type="text" id="p_sku" placeholder="SKU" required>
+            <select id="p_category"><option value="">No category</option></select>
+            <select id="p_supplier"><option value="">No supplier</option></select>
+            <input type="number" id="p_price" placeholder="Price" step="0.01" required>
+            <input type="number" id="p_quantity" placeholder="Initial Qty" value="0">
+            <input type="number" id="p_reorder" placeholder="Reorder Level" value="10">
+            <button type="submit">Add Product</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header-row">
+            <h3>All Products</h3>
+            <div class="filter-row">
+              <input type="text" id="searchInput" placeholder="Search by name or SKU...">
+              <select id="filterCategory"><option value="">All categories</option></select>
+            </div>
+          </div>
+          <table id="productsTable">
+            <thead>
+              <tr>
+                <th>Name</th><th>SKU</th><th>Category</th><th>Supplier</th>
+                <th>Price</th><th>Quantity</th><th>Reorder Level</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Categories section ===== -->
+      <section class="view" id="view-categories" style="display:none;">
+        <h2 class="view-title">Categories</h2>
+        <div class="panel" id="categoryAdminPanel" style="display:none;">
+          <h3>Add Category</h3>
+          <form id="addCategoryForm" class="inline-form">
+            <input type="text" id="c_name" placeholder="Category name" required>
+            <button type="submit">Add Category</button>
+          </form>
+        </div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Name</th><th>Actions</th></tr></thead>
+            <tbody id="categoriesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Suppliers section ===== -->
+      <section class="view" id="view-suppliers" style="display:none;">
+        <h2 class="view-title">Suppliers</h2>
+        <div class="panel" id="supplierAdminPanel" style="display:none;">
+          <h3>Add Supplier</h3>
+          <form id="addSupplierForm" class="inline-form">
+            <input type="text" id="s_name" placeholder="Supplier name" required>
+            <input type="email" id="s_email" placeholder="Contact email">
+            <input type="text" id="s_phone" placeholder="Phone">
+            <button type="submit">Add Supplier</button>
+          </form>
+        </div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead>
+            <tbody id="suppliersBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Stock & History section ===== -->
+      <section class="view" id="view-stock" style="display:none;">
+        <h2 class="view-title">Stock &amp; History</h2>
+
+        <div class="stat-grid" style="margin-bottom: 24px;">
+          <div class="stat-card">
+            <div class="stat-label">Total Sales Revenue</div>
+            <div class="stat-value" id="statSalesRevenue">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Restock Cost</div>
+            <div class="stat-value" id="statRestockCost">—</div>
+          </div>
+          <div class="stat-card stat-card-amber">
+            <div class="stat-label">Net</div>
+            <div class="stat-value" id="statNetRevenue">—</div>
+          </div>
+        </div>
+        <p style="font-size:12px; color: var(--muted); margin-top:-16px;">
+          Only counts transactions recorded after revenue tracking was added - older entries show no value.
+        </p>
+
+        <div class="panel">
+          <h3>Record Stock Movement</h3>
+          <form id="stockForm" class="inline-form">
+            <select id="s_productId" required></select>
+            <select id="s_type">
+              <option value="IN">Stock IN</option>
+              <option value="OUT">Stock OUT</option>
+            </select>
+            <input type="number" id="s_quantity" placeholder="Quantity" required>
+            <input type="text" id="s_note" placeholder="Note (optional)">
+            <button type="submit">Submit</button>
+          </form>
+          <p id="stockMsg"></p>
+        </div>
+
+        <div class="panel">
+          <h3>Transaction History</h3>
+          <select id="historyProductSelect"></select>
+          <table style="margin-top:14px;">
+            <thead><tr><th>Date</th><th>Type</th><th>Quantity</th><th>Amount</th><th>By</th><th>Note</th></tr></thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Login History section (ADMIN only) ===== -->
+      <section class="view" id="view-login-history" style="display:none;">
+        <h2 class="view-title">Login History</h2>
+        <div class="panel">
+          <div class="panel-header-row">
+            <h3>All Logins</h3>
+            <button id="clearHistoryBtn" class="delete-btn">Clear History</button>
+          </div>
+          <table>
+            <thead><tr><th>User</th><th>Role</th><th>Logged in at</th></tr></thead>
+            <tbody id="loginHistoryBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Users section (ADMIN only) ===== -->
+      <section class="view" id="view-users" style="display:none;">
+        <h2 class="view-title">Users</h2>
+        <p style="font-size: 13px; color: var(--muted); margin-top: -12px; margin-bottom: 18px;">
+          Staff members who forget their password need an admin to reset it for them here.
+          Admins have no self-service reset - if an admin loses access, they must register
+          a new admin account using the access key.
+        </p>
+        <div class="panel">
+          <div class="panel-header-row">
+            <h3>All Users</h3>
+            <input type="text" id="userSearchInput" placeholder="Search by username...">
+          </div>
+          <table>
+            <thead><tr><th>Username</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Edit Product Modal -->
+  <div class="modal-backdrop" id="editModalBackdrop" style="display:none;">
+    <div class="modal">
+      <h3>Edit Product</h3>
+      <form id="editProductForm">
+        <input type="hidden" id="e_id">
+        <input type="text" id="e_name" placeholder="Name" required>
+        <input type="text" id="e_sku" placeholder="SKU" required>
+        <select id="e_category"><option value="">No category</option></select>
+        <select id="e_supplier"><option value="">No supplier</option></select>
+        <input type="number" id="e_price" placeholder="Price" step="0.01" required>
+        <input type="number" id="e_reorder" placeholder="Reorder Level" required>
+        <div class="modal-actions">
+          <button type="button" id="cancelEditBtn" class="secondary-btn">Cancel</button>
+          <button type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reset User Password Modal (admin use) -->
+  <div class="modal-backdrop" id="resetPasswordModalBackdrop" style="display:none;">
+    <div class="modal">
+      <h3>Reset Password</h3>
+      <p id="resetPasswordTargetLabel" style="font-size: 13px; color: var(--muted); margin: -8px 0 4px;"></p>
+      <form id="resetPasswordForm">
+        <input type="hidden" id="rp_userId">
+        <input type="password" id="rp_newPassword" placeholder="New password" required minlength="6">
+        <div class="modal-actions">
+          <button type="button" id="cancelResetPasswordBtn" class="secondary-btn">Cancel</button>
+          <button type="submit">Set New Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Deactivate User Modal (admin use, requires access key) -->
+  <div class="modal-backdrop" id="deleteUserModalBackdrop" style="display:none;">
+    <div class="modal">
+      <h3>Deactivate Staff Account</h3>
+      <p id="deleteUserTargetLabel" style="font-size: 13px; color: var(--brick); margin: -8px 0 4px;"></p>
+      <form id="deleteUserForm">
+        <input type="hidden" id="du_userId">
+        <input type="password" id="du_accessKey" placeholder="Admin access key" required>
+        <div class="modal-actions">
+          <button type="button" id="cancelDeleteUserBtn" class="secondary-btn">Cancel</button>
+          <button type="submit" style="background: var(--brick); color: white;">Deactivate Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

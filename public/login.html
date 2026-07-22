@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShipTrack — Warehouse & Shipments Management</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="landing-body">
+  <div class="landing-grid">
+
+    <div class="hero-panel">
+      <div class="hero-photo-layer" aria-hidden="true"></div>
+
+      <div class="crate-scene" aria-hidden="true">
+        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Warehouse building, single flat silhouette, no internal grid -->
+          <path d="M40 260 V120 L200 55 L360 120 V260 Z" fill="#7A8088" opacity="0.9"/>
+          <!-- Roller door -->
+          <rect x="170" y="180" width="60" height="80" fill="#565C64" opacity="0.9"/>
+          <!-- Small window -->
+          <rect x="90" y="150" width="34" height="34" rx="3" fill="#565C64" opacity="0.8"/>
+          <rect x="276" y="150" width="34" height="34" rx="3" fill="#565C64" opacity="0.8"/>
+          <!-- Ground line -->
+          <rect x="10" y="258" width="380" height="4" fill="#565C64" opacity="0.9"/>
+        </svg>
+      </div>
+
+      <div class="hero-copy">
+        <div class="manifest-eyebrow">MANIFEST NO. 00214</div>
+        <h1 class="hero-title">Know your stock<br>before it runs out.</h1>
+        <p class="hero-sub">Every shipment, shelf, and supplier in one live ledger — so restocks happen before shelves go empty, not after.</p>
+
+        <div class="stamp" aria-hidden="true">
+          <div class="stamp-inner">GOODS<br>RECEIVED</div>
+        </div>
+      </div>
+
+      <div class="hazard-strip" aria-hidden="true"></div>
+
+      <div class="truck-lane" aria-hidden="true">
+        <svg class="truck" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+          <!-- Trailer -->
+          <rect x="2" y="10" width="62" height="26" rx="2" fill="#F0A030"/>
+          <rect x="6" y="14" width="54" height="6" fill="#2C4A3F" opacity="0.3"/>
+          <!-- Cab -->
+          <path d="M64 18 h20 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-20 z" fill="#E7E5E0"/>
+          <rect x="70" y="22" width="12" height="9" rx="1" fill="#2C4A3F" opacity="0.5"/>
+          <!-- Wheels -->
+          <circle cx="18" cy="38" r="7" fill="#1C1E21"/>
+          <circle cx="18" cy="38" r="3" fill="#8a8a86"/>
+          <circle cx="50" cy="38" r="7" fill="#1C1E21"/>
+          <circle cx="50" cy="38" r="3" fill="#8a8a86"/>
+          <circle cx="82" cy="38" r="7" fill="#1C1E21"/>
+          <circle cx="82" cy="38" r="3" fill="#8a8a86"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="auth-panel">
+      <div class="auth-container">
+        <div class="login-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="14" fill="none" stroke="#3B5D50" stroke-width="4"/>
+            <circle cx="24" cy="24" r="5" fill="#3B5D50"/>
+            <path d="M34 34 L54 54" stroke="#3B5D50" stroke-width="4" stroke-linecap="round"/>
+            <path d="M46 46 L52 40" stroke="#3B5D50" stroke-width="4" stroke-linecap="round"/>
+            <path d="M50 50 L56 44" stroke="#3B5D50" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-mark">ShipTrack</div>
+        <h2>Sign in to your warehouse</h2>
+        <form id="loginForm">
+          <input type="text" id="username" placeholder="Username" required>
+          <input type="password" id="password" placeholder="Password" required>
+          <button type="submit">Log In</button>
+        </form>
+        <p id="errorMsg" class="error"></p>
+        <p><a href="forgot-password.html">Forgot password?</a></p>
+        <p>No account? <a href="register.html">Register here</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
