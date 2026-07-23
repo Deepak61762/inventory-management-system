@@ -1,4 +1,4 @@
-const API_URL = "/api/auth";
+
 
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
