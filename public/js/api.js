@@ -2,7 +2,7 @@
 // Automatically attaches the JWT token (stored after login) to every request,
 // and redirects to login if the token is missing or the server says it's invalid.
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 // Log the user out on a hard refresh (F5 / reload button), but NOT on normal
 // navigation between pages - e.g. login.html redirecting to index.html right
